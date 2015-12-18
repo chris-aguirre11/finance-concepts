@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>  
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>  
+ <class name="persistence.objects.DailyTreasuryYieldCurve" table="DailyTreasuryYieldCurve">  
+ 	 
+ 	 <id name="id">  
+	 	<generator class="increment"></generator>  
+	 </id>  
+	 
+	 <property name="month1"></property>  
+	 <property name="month3"></property>  
+	 <property name="month6"></property>  
+	 <property name="year1"></property>  
+	 <property name="year2"></property>  
+	 <property name="year3"></property>  
+	 <property name="year5"></property>  
+	 <property name="year7"></property>  
+	 <property name="year10"></property>  
+	 <property name="year20"></property>  
+	 <property name="year30"></property>  
+ 
+ </class>  
+         
+ </hibernate-mapping> 
