@@ -112,10 +112,8 @@
             {
                 datatype: "tab",
                 datafields: [
-                    { name: 'Date' },
-                    { name: 'Referral' },
-                    { name: 'SearchPaid' },
-                    { name: 'SearchNonPaid' }
+                    { name: 'Term' },
+                    { name: 'Rate' }
                 ],
                 url: 'http://localhost:8080/finance-concepts/DataServlet',
                 type: 'GET'
@@ -125,8 +123,8 @@
 
             // prepare jqxChart settings
             var settings = {
-                title: "Website traffic analysis",
-                description: "Unique daily visitors (stacked)",
+                title: "Daily Treasury Yield Curve",
+                description: "Obtained from www.treasury.gov",
                 enableAnimations: true,
                 showLegend: true,
                 padding: { left: 10, top: 5, right: 10, bottom: 5 },
@@ -134,11 +132,11 @@
                 source: dataAdapter,
                 xAxis:
                 {
-                    dataField: 'Date',
+                	dataField: 'Term',
                     type: 'date',
-                    baseUnit: 'day',
+                    baseUnit: 'year',
                     valuesOnTicks: true,
-                    labels:
+                    /* labels:
                     {
                         formatFunction: function (value) {
                             return value.getDate();
@@ -147,14 +145,14 @@
                     toolTipFormatFunction: function (value) {
                         var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                         return value.getDate() + '-' + months[value.getMonth()] + '-' + value.getFullYear();
-                    },
+                    }, */
                 },
                 valueAxis:
                 {
-                    unitInterval: 500,
+                    unitInterval: 0.5,
                     minValue: 0,
-                    maxValue: 4500,
-                    title: {text: 'Daily visitors by source<br>'}
+                    maxValue: 4,
+                    title: {text: 'Rates'}
                 },
                 colorScheme: 'scheme03',
                 seriesGroups:
@@ -162,9 +160,7 @@
                         {
                             type: 'stackedarea',
                             series: [
-                                    { dataField: 'SearchNonPaid', displayText: 'Desktop Search' },
-                                    { dataField: 'SearchPaid', displayText: 'Mobile Search' },
-                                    { dataField: 'Referral', displayText: 'Social media' }
+                                    { dataField: 'Rate', displayText: 'Term' }
                                 ]
                         }
                     ]

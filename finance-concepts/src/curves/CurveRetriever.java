@@ -23,8 +23,7 @@ public class CurveRetriever {
 	static List<Double> currentTreasuryYieldRates = new ArrayList<Double>();
 	
 //	public static void main(String[] args) {
-//		retrieveDailyTreasuryYieldCurve();
-//		persistDailyTreasuryYieldCurveToDb();
+//		DailyTreasuryYieldCurveDao.retrieve();
 //		
 //	}
 	
