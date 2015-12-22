@@ -18,6 +18,7 @@
     <script type="text/javascript" src="http://jspexamples.jqwidgets.com/examples/jqwidgets/jqxlistbox.js"></script>
     <script type="text/javascript" src="http://jspexamples.jqwidgets.com/examples/jqwidgets/jqxdropdownlist.js"></script>
     <script type="text/javascript" src="http://jspexamples.jqwidgets.com/examples/scripts/demos.js"></script>
+    <script type="text/javascript" src="http://jspexamples.jqwidgets.com/examples/jqwidgets/jqxnumberinput.js"></script>
     
     <!-- For the chart -->
     <script type="text/javascript" src="http://jspexamples.jqwidgets.com/examples/jqwidgets/jqxdraw.js"></script>
@@ -102,7 +103,13 @@
             });
     </script>
     
-    
+    <!-- For numberInput -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Create jqxNumberInput
+            $("#numericInput").jqxNumberInput({ width: '250px', height: '25px',  spinButtons: true });
+        });
+    </script>
     
     <!-- For the chart -->
     <script type="text/javascript">
@@ -213,19 +220,27 @@
     <div class="col-sm-8 text-left"> 
 		<div class="container">
 		  <div class="container">
-			  
-			  <br>
-			  <label>Select a Yield Curve:</label>
-			  
 			  <form class="form" id="form" target="form-iframe" method="post" action="RetrieveDataServlet" 
 			  	style="font-size: 13px; font-family: Verdana; width: 650px;">
 			  	
-	        		<div id="jqxDropDownList" name="yieldCurveSelection"></div>
-	        		<input style="margin-top: 10px;" type="submit" value="Submit" id="sendButton" />
+			  		<br>
+			  		<label>Select a Yield Curve:</label>
+			  
+	        		<div id="jqxDropDownList" name="yieldCurveSelection"></div> 
+	        		
+	        		<br>
+			  		<label>Enter investment amount:</label>
+			  		<br>
+			  		<div id="numericInput" name="numericInput"></div> 
+			  		
+			  		
+			  			
+	        		<input style="margin-top: 10px;" type="submit" value="Bootstrap" id="sendButton" />
+	        		
 		      </form>
 		      
-		      
-				<div id='chartContainer' style="width:750px; height:375px">
+		     
+				<div id='chartContainer' style="width:800px; height:375px">
     			</div>
 		      
 			    <div>
