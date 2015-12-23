@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import persistence.dao.DailyTreasuryYieldCurveDao;
+import persistence.dao.ZeroCurveDao;
 import persistence.objects.DailyTreasuryYieldCurve;
+import persistence.objects.ZeroCurve;
 
 /**
  * Servlet implementation class DataServlet
@@ -32,6 +34,7 @@ public class DataServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DailyTreasuryYieldCurve yieldCurve = DailyTreasuryYieldCurveDao.retrieve();
+		ZeroCurve zeroCurve = ZeroCurveDao.retrieve();
 		
 		if(yieldCurve != null) {
 			response.setContentType("text/plain");
@@ -49,17 +52,17 @@ public class DataServlet extends HttpServlet {
 //	        printWriter.println("year30	" + yieldCurve.getYear30());
 	        
 	        //TODO Fix this - will need to convert and store dates in database
-	        printWriter.println("01/18/2016	" + yieldCurve.getMonth1());
-	        printWriter.println("03/18/2016	" + yieldCurve.getMonth3());
-	        printWriter.println("06/18/2016	" + yieldCurve.getMonth6());
-	        printWriter.println("12/18/2016	" + yieldCurve.getYear1());
-	        printWriter.println("12/18/2017	" + yieldCurve.getYear2());
-	        printWriter.println("12/18/2018	" + yieldCurve.getYear3());
-	        printWriter.println("12/18/2020	" + yieldCurve.getYear5());
-	        printWriter.println("12/18/2022	" + yieldCurve.getYear7());
-	        printWriter.println("12/18/2025	" + yieldCurve.getYear10());
-	        printWriter.println("12/18/2035	" + yieldCurve.getYear20());
-	        printWriter.println("12/18/2045	" + yieldCurve.getYear30());
+	        printWriter.println("01/18/2016	" + yieldCurve.getMonth1() + "\t" + zeroCurve.getMonth1());
+	        printWriter.println("03/18/2016	" + yieldCurve.getMonth3() + "\t" + zeroCurve.getMonth3());
+	        printWriter.println("06/18/2016	" + yieldCurve.getMonth6() + "\t" + zeroCurve.getMonth6());
+	        printWriter.println("12/18/2016	" + yieldCurve.getYear1() + "\t" + zeroCurve.getYear1());
+	        printWriter.println("12/18/2017	" + yieldCurve.getYear2() + "\t" + zeroCurve.getYear2());
+	        printWriter.println("12/18/2018	" + yieldCurve.getYear3() + "\t" + zeroCurve.getYear3());
+	        printWriter.println("12/18/2020	" + yieldCurve.getYear5() + "\t" + zeroCurve.getYear5());
+	        printWriter.println("12/18/2022	" + yieldCurve.getYear7() + "\t" + zeroCurve.getYear7());
+	        printWriter.println("12/18/2025	" + yieldCurve.getYear10() + "\t" + zeroCurve.getYear10());
+	        printWriter.println("12/18/2035	" + yieldCurve.getYear20() + "\t" + zeroCurve.getYear20());
+	        printWriter.println("12/18/2045	" + yieldCurve.getYear30() + "\t" + zeroCurve.getYear30());
 		}
 	}
 

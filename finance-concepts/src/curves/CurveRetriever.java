@@ -22,10 +22,28 @@ public class CurveRetriever {
 	
 	static List<Double> currentTreasuryYieldRates = new ArrayList<Double>();
 	
-//	public static void main(String[] args) {
-//		DailyTreasuryYieldCurveDao.retrieve();
-//		
-//	}
+	public static double[] getYearlyYieldRates() {
+		double[] yearlyYieldRates = new double[30];
+		
+		for(int i = 0; i <= 29; i++) {
+			if(i == 3) 
+				yearlyYieldRates[i] = currentTreasuryYieldRates.get(5);	
+			else if( (i >= 4) && (i <= 5))
+				yearlyYieldRates[i] = currentTreasuryYieldRates.get(6);	
+			else if( (i >= 6) && (i <= 8))
+				yearlyYieldRates[i] = currentTreasuryYieldRates.get(7);	
+			else if( (i >= 9) && (i <= 18))
+				yearlyYieldRates[i] = currentTreasuryYieldRates.get(8);	
+			else if( (i >= 19) && (i <= 28))
+				yearlyYieldRates[i] = currentTreasuryYieldRates.get(9);	
+			else if(i == 29)
+				yearlyYieldRates[i] = currentTreasuryYieldRates.get(10);	
+			else
+				yearlyYieldRates[i] = currentTreasuryYieldRates.get(i+3);
+		}
+		return yearlyYieldRates;
+		
+	}
 	
 	public static void persistDailyTreasuryYieldCurveToDb() {
 		DailyTreasuryYieldCurve treasuryCurve = new DailyTreasuryYieldCurve();
@@ -40,7 +58,7 @@ public class CurveRetriever {
 		treasuryCurve.setYear7(currentTreasuryYieldRates.get(7));
 		treasuryCurve.setYear10(currentTreasuryYieldRates.get(8));
 		treasuryCurve.setYear20(currentTreasuryYieldRates.get(9));
-		treasuryCurve.setYear30(currentTreasuryYieldRates.get(10));
+		treasuryCurve.setYear30(currentTreasuryYieldRates.get(10));	
 		
 		DailyTreasuryYieldCurveDao.register(treasuryCurve);
 	}
@@ -85,7 +103,7 @@ public class CurveRetriever {
 	        				for(int x = 0; x < gBcCatChildren.getLength()-1; x++) {
 	        					//System.out.println(gBcCatChildren.item(x).getTextContent());
 	        					currentTreasuryYieldRates.add(
-	        							Double.parseDouble(gBcCatChildren.item(x).getTextContent()));
+	        							Double.parseDouble(gBcCatChildren.item(x).getTextContent()) / 100.0);
 	        				}
 		        		}
 	        		}

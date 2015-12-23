@@ -6,7 +6,7 @@
 <hibernate-configuration>  
   
 <session-factory>  
-	 <!-- <property name="hbm2ddl.auto">create</property>  --> 
+	 <!-- <property name="hbm2ddl.auto">create</property>   -->
       
     <!-- Database connection settings -->
       <property name='connection.driver_class'>com.mysql.jdbc.Driver</property>
@@ -24,7 +24,8 @@
       <property name='show_sql'>true</property>
 
       <!-- Mapping files -->
- 	  <mapping resource="dailytreasuryyieldcurve.hbm.xml"/> 
+ 	  <mapping resource="dailytreasuryyieldcurve.hbm.xml"/>
+ 	  <mapping resource="zerocurve.hbm.xml"/> 
  	  
  	  
  		

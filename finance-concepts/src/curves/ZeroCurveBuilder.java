@@ -1,22 +1,20 @@
 package curves;
 
+import persistence.dao.DailyTreasuryYieldCurveDao;
+import persistence.dao.ZeroCurveDao;
+import persistence.objects.DailyTreasuryYieldCurve;
+import persistence.objects.ZeroCurve;
+
 public class ZeroCurveBuilder {
 	
-	public static void main(String[] args) {
-		double[] yieldCurveRates = {
-				0.05, 0.06, 0.07, 0.08, 0.09
-		};
-		
-		double[] zeroCurveRates = ZeroCurveBuilder.calculateZeroCurveRates(yieldCurveRates, 1.0);
-		System.out.println();
-	}
+	public static double[] zeroCurveRates;
 	
 	/**
 	 * Generates a zero curve from the yieldCurveRates and investmentAmount
 	 */
-	public static double[] calculateZeroCurveRates(double[] yieldCurveRates, double investmentAmount) {
+	public static void calculateZeroCurveRates(double[] yieldCurveRates, double investmentAmount) {
 		
-		double[] zeroCurveRates = new double[yieldCurveRates.length]; 
+		zeroCurveRates = new double[yieldCurveRates.length]; 
 		
 		//Set 1st Zero Curve Rate to be the same as 1st Yield Curve Rate
 		zeroCurveRates[0] = yieldCurveRates[0];
@@ -24,7 +22,7 @@ public class ZeroCurveBuilder {
 		int max = yieldCurveRates.length;
 		for(int i = 2; i <= max; i++) {
 			
-			double yieldRateForCurrentYearPoint = yieldCurveRates[i-1];
+			double yieldRateForCurrentYearPoint = yieldCurveRates[i-1]; //Use year2 and year3 for those years respectively
 			
 			double[] currentPresentValues = new double[yieldCurveRates.length];
 			
@@ -53,6 +51,23 @@ public class ZeroCurveBuilder {
 				}
 			}
 		}
-		return zeroCurveRates;
+	}
+	
+	public static void persistZeroCurveToDb() {
+		ZeroCurve zeroCurve = new ZeroCurve();
+		
+		zeroCurve.setMonth1(0.0);
+		zeroCurve.setMonth3(0.0);
+		zeroCurve.setMonth6(0.0);
+		zeroCurve.setYear1(zeroCurveRates[0]);
+		zeroCurve.setYear2(zeroCurveRates[1]);
+		zeroCurve.setYear3(zeroCurveRates[2]);
+		zeroCurve.setYear5(zeroCurveRates[4]);
+		zeroCurve.setYear7(zeroCurveRates[6]);
+		zeroCurve.setYear10(zeroCurveRates[9]);
+		zeroCurve.setYear20(zeroCurveRates[19]);
+		zeroCurve.setYear30(zeroCurveRates[29]);	
+		
+		ZeroCurveDao.register(zeroCurve);
 	}
 }

@@ -2,7 +2,7 @@
 <%@ page import="java.sql.*" %>
 <html lang="en">
 <head>
-  <title>Organization Manager</title>
+  <title>Bootstrapping Yield Curves</title>
   <meta charset="utf-8">
   <meta name="viewport" content="text/html; charset=ISO-8859-1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -19,7 +19,9 @@
     <script type="text/javascript" src="http://jspexamples.jqwidgets.com/examples/jqwidgets/jqxdropdownlist.js"></script>
     <script type="text/javascript" src="http://jspexamples.jqwidgets.com/examples/scripts/demos.js"></script>
     <script type="text/javascript" src="http://jspexamples.jqwidgets.com/examples/jqwidgets/jqxnumberinput.js"></script>
-    
+    <script type="text/javascript" src="http://jspexamples.jqwidgets.com/examples/jqwidgets/jqxinput.js"></script>
+     
+ 
     <!-- For the chart -->
     <script type="text/javascript" src="http://jspexamples.jqwidgets.com/examples/jqwidgets/jqxdraw.js"></script>
     <script type="text/javascript" src="http://jspexamples.jqwidgets.com/examples/jqwidgets/jqxchart.core.js"></script>
@@ -33,7 +35,7 @@
     }
     
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    .row.content {height: 450px}
+    .row.content {height: 2000px}
     
     /* Set gray background color and 100% height */
     .sidenav {
@@ -58,7 +60,7 @@
     /* On small screens, set height to 'auto' for sidenav and grid */
     @media screen and (max-width: 767px) {
       .sidenav {
-        height: auto;
+        height: 100%;
         padding: 15px;
       }
       .row.content {height:auto;} 
@@ -111,6 +113,16 @@
         });
     </script>
     
+    <!-- Refresh Chart -->
+    <script type="text/javascript">
+        function refresh_chart() {
+        	$('#chartContainer').jqxChart('refresh');
+        }
+    </script>
+    
+    
+    
+    
     <!-- For the chart -->
     <script type="text/javascript">
         $(document).ready(function () {
@@ -120,7 +132,8 @@
                 datatype: "tab",
                 datafields: [
                     { name: 'Term' },
-                    { name: 'Rate' }
+                    { name: 'Rate' },
+                    { name: 'ZeroRate' }
                 ],
                 url: 'http://localhost:8080/finance-concepts/DataServlet',
                 type: 'GET'
@@ -130,8 +143,8 @@
 
             // prepare jqxChart settings
             var settings = {
-                title: "Daily Treasury Yield Curve",
-                description: "Obtained from www.treasury.gov",
+                title: "Curves",
+                description: "Reference: http://rebrained.com/?p=23",
                 enableAnimations: true,
                 showLegend: true,
                 padding: { left: 10, top: 5, right: 10, bottom: 5 },
@@ -156,9 +169,9 @@
                 },
                 valueAxis:
                 {
-                    unitInterval: 0.5,
+                    unitInterval: 0.01,
                     minValue: 0,
-                    maxValue: 4,
+                    maxValue: 0.1,
                     title: {text: 'Rates'}
                 },
                 colorScheme: 'scheme03',
@@ -167,7 +180,8 @@
                         {
                             type: 'stackedarea',
                             series: [
-                                    { dataField: 'Rate', displayText: 'Term' }
+                                    { dataField: 'Rate', displayText: 'Daily Treasury Yield Curve' },
+                                    { dataField: 'ZeroRate', displayText: 'Generated Zero Curve' }
                                 ]
                         }
                     ]
@@ -195,9 +209,9 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">Org1 Registration</a></li>
-        <li><a href="#">Org2 Registration</a></li>
-        <li><a href="#">Other</a></li>
+        <li><a href="#">Other Page1</a></li>
+        <li><a href="#">Other Page2</a></li>
+        <li><a href="#">Other Page3</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -229,23 +243,26 @@
 	        		<div id="jqxDropDownList" name="yieldCurveSelection"></div> 
 	        		
 	        		<br>
-			  		<label>Enter investment amount:</label>
+			  		<label>Enter investment amount in USD:</label>
 			  		<br>
 			  		<div id="numericInput" name="numericInput"></div> 
 			  		
-			  		
-			  			
-	        		<input style="margin-top: 10px;" type="submit" value="Bootstrap" id="sendButton" />
+			  		<!-- <div id='investmentAmount'>
+       					<input type="text" id="investmentAmount"/>
+    				</div> -->
+	
+	        		<input style="margin-top: 10px;" type="submit" value="Bootstrap" id="sendButton" onclick="refresh_chart"/>
 	        		
+	        		<div id='chartContainer' style="width:800px; height:400px"></div>
 		      </form>
 		      
 		     
-				<div id='chartContainer' style="width:800px; height:375px">
-    			</div>
+				
 		      
 			    <div>
 			        <iframe id="form-iframe" name="form-iframe" class="demo-iframe" frameborder="0"></iframe>
 			    </div>
+			  
 			  
 			</div>
 			
